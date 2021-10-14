@@ -2,9 +2,9 @@ package view;
 
 import processing.core.PApplet;
 
-public class HomeScreen extends Screen {
+public class InstructionScreen extends Screen {
 
-	public HomeScreen(PApplet app) {
+	public InstructionScreen(PApplet app) {
 		super(app);
 		// TODO Auto-generated constructor stub
 	}
@@ -12,6 +12,6 @@ public class HomeScreen extends Screen {
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
-		app.image(home, 0, 0);
+		app.image(gameInst, 0, 0);
 	}
 }

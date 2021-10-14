@@ -23,7 +23,7 @@ public class Main extends PApplet {
 	
 	public void setup() {
 		c = new Controller(this);
-		screen = 0;
+		screen = 3;
 		homeScreen = new HomeScreen(this);
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
@@ -89,7 +89,7 @@ public class Main extends PApplet {
 		case 3:
 			gameScreen.draw();
 			c.draw();
-			//c.move();
+			c.move();
 			break;
 		}
 	}

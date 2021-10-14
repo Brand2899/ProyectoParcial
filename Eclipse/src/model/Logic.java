@@ -41,10 +41,32 @@ public class Logic {
 	//=============================================================//
 	
 	public void move() {
-		while(knights[0].getPosX() != 1450) {
-			int posX = knights[0].getPosX();
-			knights[0].setPosX(posX++);
-			System.out.println("Move");
+		int posX1 = knights[0].getPosX();
+		int posX2 = knights[1].getPosX();
+		
+		if(knights[0].getPosX() < 1351) {
+			knights[0].setPosX(posX1 += 1);
+		}
+		if(knights[1].getPosX() < 1351) {
+			knights[1].setPosX(posX2 += 1);
+		}
+		victory();
+	}
+	
+	
+	//=============================================================//
+	// Decidir Victoria
+	//=============================================================//
+	
+	public void victory() {
+		if(knights[0].getPosX() == 1350 || knights[1].getPosX() == 1350) {
+			if(knights[0].getPosX() < knights[1].getPosX()) {
+				System.out.println("Gana Jugador 2");
+			} else if(knights[0].getPosX() > knights[1].getPosX()) {
+				System.out.println("Gana Jugador 1");
+			}else {
+				System.out.println("Empate");
+			}
 		}
 	}
 }

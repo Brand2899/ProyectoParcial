@@ -89,6 +89,7 @@ public class Main extends PApplet {
 		case 3:
 			gameScreen.draw();
 			c.draw();
+			//c.move();
 			break;
 		}
 	}

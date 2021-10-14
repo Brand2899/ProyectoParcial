@@ -14,5 +14,12 @@ public class Knight extends Element {
 		// TODO Auto-generated method stub
 		app.image(icon, posX, posY);
 	}
-
+	
+	public int getPosX() {
+		return posX;
+	}
+	
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
 }

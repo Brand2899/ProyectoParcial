@@ -35,4 +35,16 @@ public class Logic {
 		knights[0] = new Knight(app, "img/KnightP1.png", 0, 700);
 		knights[1] = new Knight(app, "img/KnightP2.png", 0, 900);
 	}
+	
+	//=============================================================//
+	// Mover Caballeros
+	//=============================================================//
+	
+	public void move() {
+		while(knights[0].getPosX() != 1450) {
+			int posX = knights[0].getPosX();
+			knights[0].setPosX(posX++);
+			System.out.println("Move");
+		}
+	}
 }

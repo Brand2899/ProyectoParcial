@@ -16,4 +16,8 @@ public class Controller {
 	public void draw() {
 		l.draw();
 	}
+	
+	public void move() {
+		l.move();
+	}
 }

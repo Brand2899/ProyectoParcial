@@ -1,13 +1,16 @@
 package view;
 
+import controller.Controller;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
 	
+	private Controller c;
 	private int screen;
 	private HomeScreen homeScreen;
 	private InstructionScreen instructionScreen;
 	private PlayerWaitScreen playerWaitScreen;
+	private GameScreen gameScreen;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -19,10 +22,12 @@ public class Main extends PApplet {
 	}
 	
 	public void setup() {
+		c = new Controller(this);
 		screen = 0;
 		homeScreen = new HomeScreen(this);
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
+		gameScreen = new GameScreen(this);
 	}
 	
 	public void draw() {
@@ -49,6 +54,12 @@ public class Main extends PApplet {
 			//si hace click adentro de la pantalla
 			screen = 2;
 			break;
+			
+		// Pantalla Esperar jugadores <temp>
+		case 2:
+			screen = 3;
+			break;
+		// </temp>
 		}
 	}
 	
@@ -72,6 +83,12 @@ public class Main extends PApplet {
 		// Pantalla Esperar jugadores
 		case 2:
 			playerWaitScreen.draw();
+			break;
+			
+		// Pantalla Juego
+		case 3:
+			gameScreen.draw();
+			c.draw();
 			break;
 		}
 	}

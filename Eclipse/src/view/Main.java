@@ -23,7 +23,7 @@ public class Main extends PApplet {
 	
 	public void setup() {
 		c = new Controller(this);
-		screen = 3;
+		screen = 3; // Pantalla inicial debe ser 0
 		homeScreen = new HomeScreen(this);
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
@@ -91,6 +91,21 @@ public class Main extends PApplet {
 			c.draw();
 			c.move();
 			break;
+		}
+	}
+	
+	//=============================================================//
+	// Prueba de salto
+	//=============================================================//
+	
+	public void keyPressed() {
+		if(key == CODED) {
+			if(keyCode == RIGHT) {
+				c.jumpP1();
+			}
+			if(keyCode == LEFT) {
+				c.jumpP2();
+			}
 		}
 	}
 }

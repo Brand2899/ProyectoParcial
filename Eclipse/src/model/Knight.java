@@ -3,10 +3,13 @@ package model;
 import processing.core.PApplet;
 
 public class Knight extends Element {
+	
+	private boolean isJumping;
 
 	public Knight(PApplet app, String iconAddress, int posX, int posY) {
 		super(app, iconAddress, posX, posY);
 		// TODO Auto-generated constructor stub
+		isJumping = false;
 	}
 
 	@Override
@@ -21,5 +24,13 @@ public class Knight extends Element {
 	
 	public void setPosX(int posX) {
 		this.posX = posX;
+	}
+
+	public boolean isJumping() {
+		return isJumping;
+	}
+
+	public void setJumping(boolean isJumping) {
+		this.isJumping = isJumping;
 	}
 }

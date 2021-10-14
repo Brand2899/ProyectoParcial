@@ -20,4 +20,12 @@ public class Controller {
 	public void move() {
 		l.move();
 	}
+	
+	public void jumpP1() {
+		l.jumpP1();
+	}
+	
+	public void jumpP2() {
+		l.jumpP2();
+	}
 }

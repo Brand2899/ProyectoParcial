@@ -44,11 +44,15 @@ public class Logic {
 		int posX1 = knights[0].getPosX();
 		int posX2 = knights[1].getPosX();
 		
-		if(knights[0].getPosX() < 1351) {
-			knights[0].setPosX(posX1 += 1);
-		}
-		if(knights[1].getPosX() < 1351) {
-			knights[1].setPosX(posX2 += 1);
+		//if(knights[0].isJumping() == false) {
+			if(knights[0].getPosX() < 1351) {
+				knights[0].setPosX(posX1 += 1);
+			}
+		//}
+		if(!knights[1].isJumping()) {
+			if(knights[1].getPosX() < 1351) {
+				knights[1].setPosX(posX2 += 2);
+			}
 		}
 		victory();
 	}
@@ -68,5 +72,20 @@ public class Logic {
 				System.out.println("Empate");
 			}
 		}
+	}
+	
+	public void jumpP1() {
+		for(int i = 0; i < 1000000; i++) {
+			knights[0].setJumping(true);
+			System.out.println("");
+		}
+		knights[0].setJumping(false);
+	}
+	
+	public void jumpP2() {
+		for(int i = 0; i < 1000000; i++) {
+			knights[1].setJumping(true);
+		}
+		knights[1].setJumping(false);
 	}
 }

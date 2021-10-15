@@ -36,6 +36,11 @@ public class Logic {
 		
 		knights[0].draw();
 		knights[1].draw();
+		
+		app.fill(0);
+		app.textSize(15);
+		app.text("Puntaje jugador 1: " + knights[0].getScore(), 50, 100);
+		app.text("Puntaje jugador 2: " + knights[1].getScore(), 50, 120);
 	}
 	
 	//=============================================================//
@@ -52,17 +57,21 @@ public class Logic {
 	//=============================================================//
 	
 	public void createWalls() {
-		int x1 = (int) app.random(150, 550);
-		int x2 = (int) app.random(551, 950);
-		int x3 = (int) app.random(951, 1350);
+		int x1 = (int) app.random(300, 600);
+		int x2 = (int) app.random(601, 900);
+		int x3 = (int) app.random(901, 1200);
+		
+		int x4 = (int) app.random(300, 600);
+		int x5 = (int) app.random(601, 900);
+		int x6 = (int) app.random(901, 1200);
 		
 		walls[0] = new Wall(app, "img/Wall.png", x1, 700);
 		walls[1] = new Wall(app, "img/Wall.png", x2, 700);
 		walls[2] = new Wall(app, "img/Wall.png", x3, 700);
 		
-		walls[3] = new Wall(app, "img/Wall.png", x1, 900);
-		walls[4] = new Wall(app, "img/Wall.png", x2, 900);
-		walls[5] = new Wall(app, "img/Wall.png", x3, 900);
+		walls[3] = new Wall(app, "img/Wall.png", x4, 900);
+		walls[4] = new Wall(app, "img/Wall.png", x5, 900);
+		walls[5] = new Wall(app, "img/Wall.png", x6, 900);
 	}
 	
 	//=============================================================//
@@ -101,6 +110,7 @@ public class Logic {
 		if(knights[0].getPosY() < 700) {
 			knights[0].setPosY(posY += 1);
 		}
+		calcScore();
 		victory();
 	}
 	
@@ -116,6 +126,7 @@ public class Logic {
 		if(knights[1].getPosY() < 900) {
 			knights[1].setPosY(posY += 1);
 		}
+		calcScore();
 		victory();
 	}
 	
@@ -140,18 +151,41 @@ public class Logic {
 	}
 	
 	//=============================================================//
+	// Calcular Puntaje
+	//=============================================================//
+	
+	public void calcScore() {
+		for(int i = 0; i < 3; i++) {
+			if(knights[0].getPosY() == 700) {
+				if(knights[0].getPosX() + 50 == walls[i].getPosX()) {
+					int score = knights[0].getScore() + 100;
+					knights[0].setScore(score);
+				}
+			}
+		}
+		for(int i = 3; i < 6; i++) {
+			if(knights[1].getPosY() == 900) {
+				if(knights[1].getPosX() + 50 == walls[i].getPosX()) {
+					int score = knights[1].getScore() + 100;
+					knights[1].setScore(score);
+				}
+			}
+		}
+	}
+	
+	//=============================================================//
 	// Decidir Victoria
 	//=============================================================//
 	
 	public void victory() {
-		if(knights[0].getPosX() == 1350 || knights[1].getPosX() == 1350) {
+		if(knights[0].getPosX() == 1350 && knights[1].getPosX() != 1350 || knights[0].getPosX() != 1350 && knights[1].getPosX() == 1350) {
 			if(knights[0].getPosX() < knights[1].getPosX()) {
 				System.out.println("Gana Jugador 2");
 			} else if(knights[0].getPosX() > knights[1].getPosX()) {
 				System.out.println("Gana Jugador 1");
-			}else {
-				System.out.println("Empate");
 			}
+		}else {
+			System.out.println("Empate");
 		}
 	}
 }

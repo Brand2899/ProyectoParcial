@@ -56,13 +56,13 @@ public class Logic {
 		int x2 = (int) app.random(551, 950);
 		int x3 = (int) app.random(951, 1350);
 		
-		walls[0] = new Wall(app, "img/Wall.png", x1, 660);
-		walls[1] = new Wall(app, "img/Wall.png", x2, 660);
-		walls[2] = new Wall(app, "img/Wall.png", x3, 660);
+		walls[0] = new Wall(app, "img/Wall.png", x1, 700);
+		walls[1] = new Wall(app, "img/Wall.png", x2, 700);
+		walls[2] = new Wall(app, "img/Wall.png", x3, 700);
 		
-		walls[3] = new Wall(app, "img/Wall.png", x1, 860);
-		walls[4] = new Wall(app, "img/Wall.png", x2, 860);
-		walls[5] = new Wall(app, "img/Wall.png", x3, 860);
+		walls[3] = new Wall(app, "img/Wall.png", x1, 900);
+		walls[4] = new Wall(app, "img/Wall.png", x2, 900);
+		walls[5] = new Wall(app, "img/Wall.png", x3, 900);
 	}
 	
 	//=============================================================//
@@ -78,12 +78,10 @@ public class Logic {
 			
 			if(random % 2 == 0) {
 				posX = walls[i].getPosX() + random;
-				//System.out.println("PosX: " + posX + "\n");
 			} else {
 				posX = walls[i].getPosX() - random;
-				//System.out.println("PosX: " + posX + "\n");
 			}
-			holes[i] = new Hole(app, "img/Hole.png", posX, posY + 30);
+			holes[i] = new Hole(app, "img/Hole.png", posX, posY + 60);
 		}
 	}
 	

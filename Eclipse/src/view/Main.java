@@ -11,6 +11,7 @@ public class Main extends PApplet {
 	private InstructionScreen instructionScreen;
 	private PlayerWaitScreen playerWaitScreen;
 	private GameScreen gameScreen;
+	private boolean jumpCommand;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -28,6 +29,7 @@ public class Main extends PApplet {
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
 		gameScreen = new GameScreen(this);
+		jumpCommand = false;
 	}
 	
 	public void draw() {

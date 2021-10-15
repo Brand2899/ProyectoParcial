@@ -11,11 +11,12 @@ public class Logic {
 	
 	public Logic(PApplet app) {
 		
-		NUMBER_WALLS = 3;
+		NUMBER_WALLS = 6;
 		this.app = app;
 		knights = new Knight[2];
 		walls = new Wall[NUMBER_WALLS];
 		createKnights();
+		createWalls();
 	}
 	
 	//=============================================================//
@@ -23,6 +24,10 @@ public class Logic {
 	//=============================================================//
 	
 	public void draw() {
+		for(int i = 0; i < walls.length; i++) {
+			walls[i].draw();
+		}
+		
 		knights[0].draw();
 		knights[1].draw();
 	}
@@ -34,6 +39,24 @@ public class Logic {
 	public void createKnights() {
 		knights[0] = new Knight(app, "img/KnightP1.png", 0, 700);
 		knights[1] = new Knight(app, "img/KnightP2.png", 0, 900);
+	}
+	
+	//=============================================================//
+	// Crear Muros
+	//=============================================================//
+	
+	public void createWalls() {
+		int x1 = (int) app.random(150, 550);
+		int x2 = (int) app.random(551, 950);
+		int x3 = (int) app.random(951, 1350);
+		
+		walls[0] = new Wall(app, "img/Wall.png", x1, 660);
+		walls[1] = new Wall(app, "img/Wall.png", x2, 660);
+		walls[2] = new Wall(app, "img/Wall.png", x3, 660);
+		
+		walls[3] = new Wall(app, "img/Wall.png", x1, 860);
+		walls[4] = new Wall(app, "img/Wall.png", x2, 860);
+		walls[5] = new Wall(app, "img/Wall.png", x3, 860);
 	}
 	
 	//=============================================================//

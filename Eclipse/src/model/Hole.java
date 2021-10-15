@@ -12,7 +12,14 @@ public class Hole extends Element{
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
-		
+		app.image(icon, posX, posY);
 	}
-
+	
+	public int getPosX() {
+		return posX;
+	}
+	
+	public int getPosY() {
+		return posY;
+	}
 }

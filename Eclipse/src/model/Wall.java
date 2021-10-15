@@ -18,4 +18,8 @@ public class Wall extends Element{
 	public int getPosX() {
 		return posX;
 	}
+	
+	public int getPosY() {
+		return posY;
+	}
 }

@@ -7,16 +7,18 @@ public class Logic {
 	private PApplet app;
 	private Knight[] knights;
 	private Wall[] walls;
-	private final int NUMBER_WALLS;
+	private Hole[] holes;
+	private final int NUMBER_WALLS = 6;
+	private final int NUMBER_HOLES = 6;
 	
 	public Logic(PApplet app) {
-		
-		NUMBER_WALLS = 6;
 		this.app = app;
 		knights = new Knight[2];
 		walls = new Wall[NUMBER_WALLS];
+		holes = new Hole[NUMBER_HOLES];
 		createKnights();
 		createWalls();
+		createHoles();
 	}
 	
 	//=============================================================//
@@ -24,6 +26,10 @@ public class Logic {
 	//=============================================================//
 	
 	public void draw() {
+		for(int i = 0; i < holes.length; i++) {
+			holes[i].draw();
+		}
+		
 		for(int i = 0; i < walls.length; i++) {
 			walls[i].draw();
 		}
@@ -57,6 +63,28 @@ public class Logic {
 		walls[3] = new Wall(app, "img/Wall.png", x1, 860);
 		walls[4] = new Wall(app, "img/Wall.png", x2, 860);
 		walls[5] = new Wall(app, "img/Wall.png", x3, 860);
+	}
+	
+	//=============================================================//
+	// Crear Huecos
+	//=============================================================//
+	
+	public void createHoles() {
+		for(int i = 0; i < walls.length; i++) {
+			
+			int random = (int) app.random(50, 150);
+			int posY = walls[i].getPosY();
+			int posX = 0;
+			
+			if(random % 2 == 0) {
+				posX = walls[i].getPosX() + random;
+				//System.out.println("PosX: " + posX + "\n");
+			} else {
+				posX = walls[i].getPosX() - random;
+				//System.out.println("PosX: " + posX + "\n");
+			}
+			holes[i] = new Hole(app, "img/Hole.png", posX, posY + 30);
+		}
 	}
 	
 	//=============================================================//
@@ -101,7 +129,7 @@ public class Logic {
 	
 	public void jumpP1() {
 		if(knights[0].getPosY() == 700) {
-			knights[0].setPosY(660);
+			knights[0].setPosY(640);
 		}
 	}
 	
@@ -109,7 +137,7 @@ public class Logic {
 	
 	public void jumpP2() {
 		if(knights[1].getPosY() == 900) {
-			knights[1].setPosY(860);
+			knights[1].setPosY(840);
 		}
 	}
 	

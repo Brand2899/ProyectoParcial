@@ -18,7 +18,8 @@ public class Controller {
 	}
 	
 	public void move() {
-		l.move();
+		l.moveP1();
+		l.moveP2();
 	}
 	
 	public void jumpP1() {

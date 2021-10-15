@@ -40,23 +40,47 @@ public class Logic {
 	// Mover Caballeros
 	//=============================================================//
 	
-	public void move() {
+	// Jugador 1
+	
+	public void moveP1() {
 		int posX1 = knights[0].getPosX();
-		int posX2 = knights[1].getPosX();
 		
-		//if(knights[0].isJumping() == false) {
+		if(!knights[0].isJumping()) {
 			if(knights[0].getPosX() < 1351) {
 				knights[0].setPosX(posX1 += 1);
-			}
-		//}
-		if(!knights[1].isJumping()) {
-			if(knights[1].getPosX() < 1351) {
-				knights[1].setPosX(posX2 += 2);
 			}
 		}
 		victory();
 	}
 	
+	// Jugador 2
+	
+	public void moveP2() {
+		int posX2 = knights[1].getPosX();
+		
+		if(!knights[1].isJumping()) {
+			if(knights[1].getPosX() < 1351) {
+				knights[1].setPosX(posX2 += 1);
+			}
+		}
+		victory();
+	}
+	
+	//=============================================================//
+	// Saltar
+	//=============================================================//
+	
+	// Jugador 1
+	
+	public void jumpP1() {
+		knights[0].setJumping(true);
+	}
+	
+	// Jugador 2
+	
+	public void jumpP2() {
+		knights[0].setJumping(false);
+	}
 	
 	//=============================================================//
 	// Decidir Victoria
@@ -72,20 +96,5 @@ public class Logic {
 				System.out.println("Empate");
 			}
 		}
-	}
-	
-	public void jumpP1() {
-		for(int i = 0; i < 1000000; i++) {
-			knights[0].setJumping(true);
-			System.out.println("");
-		}
-		knights[0].setJumping(false);
-	}
-	
-	public void jumpP2() {
-		for(int i = 0; i < 1000000; i++) {
-			knights[1].setJumping(true);
-		}
-		knights[1].setJumping(false);
 	}
 }

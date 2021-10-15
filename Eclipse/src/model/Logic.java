@@ -43,12 +43,14 @@ public class Logic {
 	// Jugador 1
 	
 	public void moveP1() {
-		int posX1 = knights[0].getPosX();
+		int posX = knights[0].getPosX();
+		int posY = knights[0].getPosY();
 		
-		if(!knights[0].isJumping()) {
-			if(knights[0].getPosX() < 1351) {
-				knights[0].setPosX(posX1 += 1);
-			}
+		if(knights[0].getPosX() < 1351) {
+			knights[0].setPosX(posX += 1);
+		}
+		if(knights[0].getPosY() < 700) {
+			knights[0].setPosY(posY += 1);
 		}
 		victory();
 	}
@@ -56,12 +58,14 @@ public class Logic {
 	// Jugador 2
 	
 	public void moveP2() {
-		int posX2 = knights[1].getPosX();
+		int posX = knights[1].getPosX();
+		int posY = knights[1].getPosY();
 		
-		if(!knights[1].isJumping()) {
-			if(knights[1].getPosX() < 1351) {
-				knights[1].setPosX(posX2 += 1);
-			}
+		if(knights[1].getPosX() < 1351) {
+			knights[1].setPosX(posX += 1);
+		}
+		if(knights[1].getPosY() < 900) {
+			knights[1].setPosY(posY += 1);
 		}
 		victory();
 	}
@@ -73,13 +77,17 @@ public class Logic {
 	// Jugador 1
 	
 	public void jumpP1() {
-		knights[0].setJumping(true);
+		if(knights[0].getPosY() == 700) {
+			knights[0].setPosY(660);
+		}
 	}
 	
 	// Jugador 2
 	
 	public void jumpP2() {
-		knights[0].setJumping(false);
+		if(knights[1].getPosY() == 900) {
+			knights[1].setPosY(860);
+		}
 	}
 	
 	//=============================================================//

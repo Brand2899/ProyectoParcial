@@ -139,6 +139,7 @@ public class Logic {
 	public void jumpP1() {
 		if(knights[0].getPosY() == 700) {
 			knights[0].setPosY(640);
+			moveP1();
 		}
 	}
 	
@@ -147,6 +148,7 @@ public class Logic {
 	public void jumpP2() {
 		if(knights[1].getPosY() == 900) {
 			knights[1].setPosY(840);
+			moveP2();
 		}
 	}
 	
@@ -160,6 +162,7 @@ public class Logic {
 				if(knights[0].getPosX() + 50 == walls[i].getPosX()) {
 					int score = knights[0].getScore() + 100;
 					knights[0].setScore(score);
+					walls[i].setIconAddress("img/WallBroken.png");
 				}
 			}
 		}
@@ -168,6 +171,7 @@ public class Logic {
 				if(knights[1].getPosX() + 50 == walls[i].getPosX()) {
 					int score = knights[1].getScore() + 100;
 					knights[1].setScore(score);
+					walls[i].setIconAddress("img/WallBroken.png");
 				}
 			}
 		}

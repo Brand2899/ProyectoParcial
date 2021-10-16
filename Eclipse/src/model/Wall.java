@@ -22,4 +22,8 @@ public class Wall extends Element{
 	public int getPosY() {
 		return posY;
 	}
+	
+	public void setIconAddress(String iconAddress) {
+		this.iconAddress = iconAddress;
+	}
 }

@@ -28,7 +28,7 @@ public class Main extends PApplet {
 	
 	public void setup() {
 		c = new Controller(this);
-		screen = 0; // Pantalla inicial debe ser 0
+		screen = 3; // Pantalla inicial debe ser 0
 		homeScreen = new HomeScreen(this);
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
@@ -61,12 +61,6 @@ public class Main extends PApplet {
 			//si hace click adentro de la pantalla
 			screen = 2;
 			break;
-			
-		// Pantalla Esperar jugadores <temp>
-		case 2:
-			screen = 3;
-			break;
-		// </temp>
 		}
 	}
 	

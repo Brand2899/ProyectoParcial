@@ -1,6 +1,7 @@
 package model;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 
 public class Logic {
 	
@@ -12,6 +13,8 @@ public class Logic {
 	private final int NUMBER_HOLES = 6;
 	private int vel1;
 	private int vel2;
+	PFont title;
+	PFont font;
 	
 	public Logic(PApplet app) {
 		this.app = app;
@@ -20,6 +23,8 @@ public class Logic {
 		holes = new Hole[NUMBER_HOLES];
 		vel1 = 1;
 		vel2 = 1;
+		title = app.createFont("Georgia", 25);
+		font = app.createFont("Arial Bold", 50);
 		createKnights();
 		createWalls();
 		createHoles();
@@ -29,6 +34,7 @@ public class Logic {
 	// Método Draw
 	//=============================================================//
 	
+	@SuppressWarnings("static-access")
 	public void draw() {
 		for(int i = 0; i < holes.length; i++) {
 			holes[i].draw();
@@ -42,9 +48,10 @@ public class Logic {
 		knights[1].draw();
 		
 		app.fill(0);
-		app.textSize(15);
-		app.text("Puntaje jugador 1: " + knights[0].getScore(), 50, 100);
-		app.text("Puntaje jugador 2: " + knights[1].getScore(), 50, 120);
+		app.textFont(title);
+		app.textAlign(app.LEFT);
+		app.text("Puntaje jugador 1: " + knights[0].getScore(), 40, 100);
+		app.text("Puntaje jugador 2: " + knights[1].getScore(), 40, 145);
 		
 		victory();
 	}
@@ -110,7 +117,7 @@ public class Logic {
 		int posX = knights[0].getPosX();
 		int posY = knights[0].getPosY();
 		
-		if(knights[0].getPosX() < 1351) {
+		if(knights[0].getPosX() < 1350) {
 			knights[0].setPosX(posX += vel1);
 		}
 		if(knights[0].getPosY() < 700) {
@@ -126,7 +133,7 @@ public class Logic {
 		int posX = knights[1].getPosX();
 		int posY = knights[1].getPosY();
 		
-		if(knights[1].getPosX() < 1351) {
+		if(knights[1].getPosX() < 1350) {
 			knights[1].setPosX(posX += vel2);
 		}
 		if(knights[1].getPosY() < 900) {
@@ -165,14 +172,14 @@ public class Logic {
 	public void touchWall() {
 		for(int i = 0; i < 3; i++) {
 			if(knights[0].getPosY() == 700) {
-				if(knights[0].getPosX() + 50 == walls[i].getPosX()) {
+				if(knights[0].getPosX() + 30 == walls[i].getPosX()) {
 					calcScore(true, 0);
 				}
 			}
 		}
 		for(int i = 3; i < 6; i++) {
 			if(knights[1].getPosY() == 900) {
-				if(knights[1].getPosX() + 50 == walls[i].getPosX()) {
+				if(knights[1].getPosX() + 30 == walls[i].getPosX()) {
 					calcScore(true, 1);
 				}
 			}
@@ -224,17 +231,25 @@ public class Logic {
 	// Decidir Victoria
 	//=============================================================//
 	
+	@SuppressWarnings("static-access")
 	public void victory() {
 		
-		System.out.println("Se ejecuta el método");
-		
-		if(knights[0].getPosX() == 1350 && knights[1].getPosX() == 1350) {
+		if(knights[0].getPosX() == 1350 || knights[1].getPosX() == 1350) {
 			if(knights[0].getScore() < knights[1].getScore()) {
-				System.out.println("Gana Jugador 2");
+				app.fill(255);
+				app.textFont(font);
+				app.textAlign(app.CENTER);
+				app.text("Gana Jugador 2", 750, 500);
 			} else if(knights[0].getScore() > knights[1].getScore()) {
-				System.out.println("Gana Jugador 1");
-			}else {
-				System.out.println("Empate");
+				app.fill(255);
+				app.textFont(font);
+				app.textAlign(app.CENTER);
+				app.text("Gana Jugador 1", 750, 500);
+			}else if(knights[0].getScore() == knights[1].getScore()){
+				app.fill(255);
+				app.textFont(font);
+				app.textAlign(app.CENTER);
+				app.text("Empate", 750, 500);
 			}
 		}
 	}

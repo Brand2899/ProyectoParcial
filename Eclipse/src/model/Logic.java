@@ -10,12 +10,16 @@ public class Logic {
 	private Hole[] holes;
 	private final int NUMBER_WALLS = 6;
 	private final int NUMBER_HOLES = 6;
+	private int vel1;
+	private int vel2;
 	
 	public Logic(PApplet app) {
 		this.app = app;
 		knights = new Knight[2];
 		walls = new Wall[NUMBER_WALLS];
 		holes = new Hole[NUMBER_HOLES];
+		vel1 = 1;
+		vel2 = 1;
 		createKnights();
 		createWalls();
 		createHoles();
@@ -105,13 +109,13 @@ public class Logic {
 		int posY = knights[0].getPosY();
 		
 		if(knights[0].getPosX() < 1351) {
-			knights[0].setPosX(posX += 1);
+			knights[0].setPosX(posX += vel1);
 		}
 		if(knights[0].getPosY() < 700) {
-			knights[0].setPosY(posY += 1);
+			knights[0].setPosY(posY += vel1);
 		}
-		calcScore();
-		victory();
+		touchWall();
+		touchHole();
 	}
 	
 	// Jugador 2
@@ -121,13 +125,13 @@ public class Logic {
 		int posY = knights[1].getPosY();
 		
 		if(knights[1].getPosX() < 1351) {
-			knights[1].setPosX(posX += 1);
+			knights[1].setPosX(posX += vel2);
 		}
 		if(knights[1].getPosY() < 900) {
-			knights[1].setPosY(posY += 1);
+			knights[1].setPosY(posY += vel2);
 		}
-		calcScore();
-		victory();
+		touchWall();
+		touchHole();
 	}
 	
 	//=============================================================//
@@ -139,7 +143,7 @@ public class Logic {
 	public void jumpP1() {
 		if(knights[0].getPosY() == 700) {
 			knights[0].setPosY(640);
-			moveP1();
+			vel1 = 1;
 		}
 	}
 	
@@ -148,20 +152,19 @@ public class Logic {
 	public void jumpP2() {
 		if(knights[1].getPosY() == 900) {
 			knights[1].setPosY(840);
-			moveP2();
+			vel2 = 1;
 		}
 	}
 	
 	//=============================================================//
-	// Calcular Puntaje
+	// Tocar Muro
 	//=============================================================//
 	
-	public void calcScore() {
+	public void touchWall() {
 		for(int i = 0; i < 3; i++) {
 			if(knights[0].getPosY() == 700) {
 				if(knights[0].getPosX() + 50 == walls[i].getPosX()) {
-					int score = knights[0].getScore() + 100;
-					knights[0].setScore(score);
+					calcScore(true, 0);
 					walls[i].setIconAddress("img/WallBroken.png");
 				}
 			}
@@ -169,11 +172,51 @@ public class Logic {
 		for(int i = 3; i < 6; i++) {
 			if(knights[1].getPosY() == 900) {
 				if(knights[1].getPosX() + 50 == walls[i].getPosX()) {
-					int score = knights[1].getScore() + 100;
-					knights[1].setScore(score);
+					calcScore(true, 1);
 					walls[i].setIconAddress("img/WallBroken.png");
 				}
 			}
+		}
+	}
+	
+	//=============================================================//
+	// Tocar Hueco
+	//=============================================================//
+	
+	public void touchHole() {
+		for(int i = 0; i < 3; i++) {
+			if(knights[0].getPosY() == 700) {
+				if(knights[0].getPosX() + 20 == holes[i].getPosX()) {
+					if(vel1 == 1) {
+						calcScore(false, 0);
+					}
+					vel1 = 0;
+				}
+			}
+		}
+		for(int i = 3; i < 6; i++) {
+			if(knights[1].getPosY() == 900) {
+				if(knights[1].getPosX() + 20 == holes[i].getPosX()) {
+					if(vel2 == 1) {
+						calcScore(false, 1);
+					}
+					vel2 = 0;
+				}
+			}
+		}
+	}
+	
+	//=============================================================//
+	// Calcular puntaje
+	//=============================================================//
+	
+	public void calcScore(boolean op, int player) {
+		if(op) {
+			int score = knights[player].getScore() + 100;
+			knights[player].setScore(score);
+		} else {
+			int score = knights[player].getScore() - 50;
+			knights[player].setScore(score);
 		}
 	}
 	
@@ -182,14 +225,14 @@ public class Logic {
 	//=============================================================//
 	
 	public void victory() {
-		if(knights[0].getPosX() == 1350 && knights[1].getPosX() != 1350 || knights[0].getPosX() != 1350 && knights[1].getPosX() == 1350) {
-			if(knights[0].getPosX() < knights[1].getPosX()) {
+		if(knights[0].getPosX() == 1350 && knights[1].getPosX() == 1350) {
+			if(knights[0].getScore() < knights[1].getScore()) {
 				System.out.println("Gana Jugador 2");
-			} else if(knights[0].getPosX() > knights[1].getPosX()) {
+			} else if(knights[0].getScore() > knights[1].getScore()) {
 				System.out.println("Gana Jugador 1");
+			}else {
+				System.out.println("Empate");
 			}
-		}else {
-			System.out.println("Empate");
 		}
 	}
 }

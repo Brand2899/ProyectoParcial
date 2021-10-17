@@ -45,6 +45,8 @@ public class Logic {
 		app.textSize(15);
 		app.text("Puntaje jugador 1: " + knights[0].getScore(), 50, 100);
 		app.text("Puntaje jugador 2: " + knights[1].getScore(), 50, 120);
+		
+		victory();
 	}
 	
 	//=============================================================//
@@ -165,7 +167,6 @@ public class Logic {
 			if(knights[0].getPosY() == 700) {
 				if(knights[0].getPosX() + 50 == walls[i].getPosX()) {
 					calcScore(true, 0);
-					walls[i].setIconAddress("img/WallBroken.png");
 				}
 			}
 		}
@@ -173,7 +174,6 @@ public class Logic {
 			if(knights[1].getPosY() == 900) {
 				if(knights[1].getPosX() + 50 == walls[i].getPosX()) {
 					calcScore(true, 1);
-					walls[i].setIconAddress("img/WallBroken.png");
 				}
 			}
 		}
@@ -225,6 +225,9 @@ public class Logic {
 	//=============================================================//
 	
 	public void victory() {
+		
+		System.out.println("Se ejecuta el método");
+		
 		if(knights[0].getPosX() == 1350 && knights[1].getPosX() == 1350) {
 			if(knights[0].getScore() < knights[1].getScore()) {
 				System.out.println("Gana Jugador 2");

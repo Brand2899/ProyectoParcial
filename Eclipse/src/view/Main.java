@@ -28,7 +28,7 @@ public class Main extends PApplet {
 	
 	public void setup() {
 		c = new Controller(this);
-		screen = 3; // Pantalla inicial debe ser 0
+		screen = 0; // Pantalla inicial debe ser 0
 		homeScreen = new HomeScreen(this);
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);

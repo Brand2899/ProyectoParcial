@@ -14,7 +14,7 @@ public class Main extends PApplet implements Observer {
 	private InstructionScreen instructionScreen;
 	private PlayerWaitScreen playerWaitScreen;
 	private GameScreen gameScreen;
-	private int jump1;
+	private boolean jump1;
 	
 	private TCPSingleton tcp;
 	
@@ -41,7 +41,7 @@ public class Main extends PApplet implements Observer {
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
 		gameScreen = new GameScreen(this);
-		jump1 = 1;
+		jump1 = false;
 	}
 	
 	public void draw() {
@@ -125,11 +125,6 @@ public class Main extends PApplet implements Observer {
 		Gson gson = new Gson();
 		Instructions1 inst = gson.fromJson(msg, Instructions1.class);
 		
-		if(s.getID() == 1) {
-			jump1 = inst.getJump();
-			if(jump1 == 0) {
-				c.jumpP1();
-			}
-		}
+		System.out.println("Llego mensaje al main");
 	}	
 }

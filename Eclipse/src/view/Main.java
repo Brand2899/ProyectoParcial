@@ -13,6 +13,7 @@ import java.net.Socket;
 import com.google.gson.Gson;
 
 import controller.Controller;
+import controller.Instructions1;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
@@ -28,6 +29,10 @@ public class Main extends PApplet {
 	private Socket socket;
 	private BufferedReader br;
 	private BufferedWriter bw;
+	private boolean player1Conected;
+	private boolean player2Conected;
+	private int jump1;
+	private int jump2;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -42,12 +47,18 @@ public class Main extends PApplet {
 	}
 	
 	public void setup() {
+		startServer();
 		c = new Controller(this);
-		screen = 3; // Pantalla inicial debe ser 0
+		screen = 0; // Pantalla inicial debe ser 0
 		homeScreen = new HomeScreen(this);
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
 		gameScreen = new GameScreen(this);
+		
+		player1Conected = false;
+		player2Conected = false;
+		jump1 = 2;
+		jump2 = 2;
 	}
 	
 	public void draw() {
@@ -97,6 +108,9 @@ public class Main extends PApplet {
 		// Pantalla Esperar jugadores
 		case 2:
 			playerWaitScreen.draw();
+			if(screen == 2 && player1Conected) {
+				screen = 3;
+			}
 			break;
 			
 		// Pantalla Juego
@@ -120,6 +134,9 @@ public class Main extends PApplet {
 			if(keyCode == LEFT) {
 				c.jumpP2();
 			}
+			if(keyCode == UP) {
+				System.out.println(jump1 + "");
+			}
 		}
 	}
 	
@@ -132,10 +149,11 @@ public class Main extends PApplet {
 		new Thread(
 				() -> {
 					try {
-						ServerSocket server = new ServerSocket(5357);
+						ServerSocket server = new ServerSocket(5050);
 						System.out.println("Esperando cliente");
 						socket = server.accept();
 						System.out.println("Cliente conectado");
+						player1Conected = true;
 						
 						InputStream is = socket.getInputStream();
 			            OutputStream os = socket.getOutputStream();
@@ -149,8 +167,12 @@ public class Main extends PApplet {
 							System.out.println("Recibido: " + line);
 							
 							Gson gson = new Gson();
+							Instructions1 inst1 = gson.fromJson(line, Instructions1.class);
+							jump1 = inst1.getJump();
 							
-							
+							if(jump1 == 0) {
+								c.jumpP1();
+							}
 			            }
 					} catch (IOException e) {
 						// TODO Auto-generated catch block

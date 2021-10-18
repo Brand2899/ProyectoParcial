@@ -2,17 +2,17 @@ package com.proyectoparcial1;
 
 public class Instruction1 {
 
-    private boolean jump;
+    private int jump;
 
-    public Instruction1(boolean jump){
+    public Instruction1(int jump){
         this.jump = jump;
     }
 
-    public boolean isJump() {
+    public int isJump() {
         return jump;
     }
 
-    public void setJump(boolean jump) {
+    public void setJump(int jump) {
         this.jump = jump;
     }
 }

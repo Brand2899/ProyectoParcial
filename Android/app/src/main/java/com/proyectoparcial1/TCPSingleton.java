@@ -14,6 +14,7 @@ public class TCPSingleton extends Thread{
     private Socket socket;
     private BufferedWriter bw;
     private BufferedReader br;
+    private boolean isConected;
 
     // SINGLETON
     private static TCPSingleton instance;
@@ -33,10 +34,13 @@ public class TCPSingleton extends Thread{
 
     public void run(){
         // ip casa: 192.168.1.68
-        // puerto: 5357
+        // puerto: 5050
 
         try {
-            socket = new Socket("192.168.1.68", 5357);
+            socket = new Socket("192.168.1.68", 5050);
+
+            isConected = true;
+
             InputStream is = socket.getInputStream();
             OutputStream os = socket.getOutputStream();
 
@@ -62,5 +66,9 @@ public class TCPSingleton extends Thread{
                     }
                 }
         ).start();
+    }
+
+    public boolean isConected(){
+        return isConected;
     }
 }

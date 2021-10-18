@@ -124,17 +124,17 @@ public class Main extends PApplet implements Observer {
 		
 		Gson gson = new Gson();
 		Instructions1 inst = gson.fromJson(msg, Instructions1.class);
-		
-		System.out.println("Llego mensaje al main");
-		System.out.println("Jugador: " + s.getID());
+
 		jump = inst.getJump();
-		System.out.println("Jump: " + jump);
-		System.out.println("");
 		
 		if(s.getID() == 0) {
 			if(jump) {
-				System.out.println("Salta");
 				c.jumpP1();
+			}
+		}
+		if(s.getID() == 1) {
+			if(jump) {
+				c.jumpP2();
 			}
 		}
 	}	

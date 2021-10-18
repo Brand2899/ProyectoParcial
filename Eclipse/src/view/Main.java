@@ -1,5 +1,17 @@
 package view;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import com.google.gson.Gson;
+
 import controller.Controller;
 import processing.core.PApplet;
 
@@ -11,8 +23,11 @@ public class Main extends PApplet {
 	private InstructionScreen instructionScreen;
 	private PlayerWaitScreen playerWaitScreen;
 	private GameScreen gameScreen;
-	private boolean jumpCommand1;
-	private boolean jumpCommand2;
+	
+	
+	private Socket socket;
+	private BufferedReader br;
+	private BufferedWriter bw;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -33,8 +48,6 @@ public class Main extends PApplet {
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
 		gameScreen = new GameScreen(this);
-		jumpCommand1 = false;
-		jumpCommand2 = false;
 	}
 	
 	public void draw() {
@@ -108,5 +121,41 @@ public class Main extends PApplet {
 				c.jumpP2();
 			}
 		}
+	}
+	
+	
+	//=============================================================//
+	// Iniciar Server
+	//=============================================================//
+	
+	public void startServer() {
+		new Thread(
+				() -> {
+					try {
+						ServerSocket server = new ServerSocket(5357);
+						System.out.println("Esperando cliente");
+						socket = server.accept();
+						System.out.println("Cliente conectado");
+						
+						InputStream is = socket.getInputStream();
+			            OutputStream os = socket.getOutputStream();
+
+			            br = new BufferedReader(new InputStreamReader(is));
+			            bw = new BufferedWriter(new OutputStreamWriter(os));
+			            
+			            while(true) {
+							System.out.println("Esperando mensaje");
+							String line = br.readLine();
+							System.out.println("Recibido: " + line);
+							
+							Gson gson = new Gson();
+							
+							
+			            }
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}).start();
 	}
 }

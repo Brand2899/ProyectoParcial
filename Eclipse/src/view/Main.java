@@ -1,22 +1,12 @@
 package view;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-
 import com.google.gson.Gson;
 
 import controller.Controller;
 import controller.Instructions1;
 import processing.core.PApplet;
 
-public class Main extends PApplet {
+public class Main extends PApplet implements Observer {
 	
 	private Controller c;
 	private int screen;
@@ -24,15 +14,10 @@ public class Main extends PApplet {
 	private InstructionScreen instructionScreen;
 	private PlayerWaitScreen playerWaitScreen;
 	private GameScreen gameScreen;
-	
-	
-	private Socket socket;
-	private BufferedReader br;
-	private BufferedWriter bw;
-	private boolean player1Conected;
-	private boolean player2Conected;
 	private int jump1;
-	private int jump2;
+	
+	private TCPSingleton tcp;
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -47,18 +32,16 @@ public class Main extends PApplet {
 	}
 	
 	public void setup() {
-		startServer();
 		c = new Controller(this);
+		tcp = TCPSingleton.getInstance();
+		tcp.setMain(this);
+		
 		screen = 0; // Pantalla inicial debe ser 0
 		homeScreen = new HomeScreen(this);
 		instructionScreen = new InstructionScreen(this);
 		playerWaitScreen = new PlayerWaitScreen(this);
 		gameScreen = new GameScreen(this);
-		
-		player1Conected = false;
-		player2Conected = false;
-		jump1 = 2;
-		jump2 = 2;
+		jump1 = 1;
 	}
 	
 	public void draw() {
@@ -108,9 +91,7 @@ public class Main extends PApplet {
 		// Pantalla Esperar jugadores
 		case 2:
 			playerWaitScreen.draw();
-			if(screen == 2 && player1Conected) {
-				screen = 3;
-			}
+			screen = 3;
 			break;
 			
 		// Pantalla Juego
@@ -134,50 +115,21 @@ public class Main extends PApplet {
 			if(keyCode == LEFT) {
 				c.jumpP2();
 			}
-			if(keyCode == UP) {
-				System.out.println(jump1 + "");
-			}
 		}
 	}
-	
-	
-	//=============================================================//
-	// Iniciar Server
-	//=============================================================//
-	
-	public void startServer() {
-		new Thread(
-				() -> {
-					try {
-						ServerSocket server = new ServerSocket(5050);
-						System.out.println("Esperando cliente");
-						socket = server.accept();
-						System.out.println("Cliente conectado");
-						player1Conected = true;
-						
-						InputStream is = socket.getInputStream();
-			            OutputStream os = socket.getOutputStream();
 
-			            br = new BufferedReader(new InputStreamReader(is));
-			            bw = new BufferedWriter(new OutputStreamWriter(os));
-			            
-			            while(true) {
-							System.out.println("Esperando mensaje");
-							String line = br.readLine();
-							System.out.println("Recibido: " + line);
-							
-							Gson gson = new Gson();
-							Instructions1 inst1 = gson.fromJson(line, Instructions1.class);
-							jump1 = inst1.getJump();
-							
-							if(jump1 == 0) {
-								c.jumpP1();
-							}
-			            }
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}).start();
-	}
+	@Override
+	public void onMessage(Session s, String msg) {
+		// TODO Auto-generated method stub
+		
+		Gson gson = new Gson();
+		Instructions1 inst = gson.fromJson(msg, Instructions1.class);
+		
+		if(s.getID() == 1) {
+			jump1 = inst.getJump();
+			if(jump1 == 0) {
+				c.jumpP1();
+			}
+		}
+	}	
 }

@@ -28,7 +28,7 @@ public class ButtonActivity extends AppCompatActivity {
                     Instruction1 inst1;
                     String json;
 
-                    inst1 = new Instruction1(0);
+                    inst1 = new Instruction1(true);
                     json = gson.toJson(inst1);
                     tcp.send(json);
                 }

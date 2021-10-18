@@ -2,17 +2,17 @@ package controller;
 
 public class Instructions1 {
 	
-	private int jump;
+	private boolean jump;
 	
 	public Instructions1() {
 		
 	}
 
-	public int getJump() {
+	public boolean getJump() {
 		return jump;
 	}
 
-	public void setJump(int jump) {
+	public void setJump(boolean jump) {
 		this.jump = jump;
 	}
 }
